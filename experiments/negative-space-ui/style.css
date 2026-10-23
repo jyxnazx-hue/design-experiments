@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* Reset & Page Root */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #EFEFEA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Gentium Book Plus', serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ==========================================================================
+   DEVICE VIEWPORT (Exact 393px × 852px Canvas, 48px radius)
+   ========================================================================== */
+.device-viewport {
+  position: relative;
+  width: 393px;
+  height: 852px;
+  background: #FAF9F6;
+  border-radius: 48px;
+  overflow: hidden;
+  box-shadow: 0 24px 70px rgba(28, 20, 13, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Custom Mobile Finger Cursor (Visible on Desktop hover/drag) */
+.touch-cursor {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(194, 65, 12, 0.12);
+  border: 1px solid rgba(194, 65, 12, 0.4);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.12s ease-out, opacity 0.15s ease-out;
+  opacity: 0;
+  z-index: 100;
+}
+.touch-cursor.active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* Procedural SVG Paper Noise Overlay */
+.texture-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 393px;
+  height: 852px;
+  pointer-events: none;
+  mix-blend-mode: darken;
+  opacity: 0.3;
+  z-index: 20;
+}
+
+/* ==========================================================================
+   FIXED HEADER (Height: 93px, Progressive Blur Mask)
+   ========================================================================== */
+.header-fixed {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 393px / 2);
+  width: 393px;
+  height: 93px;
+  padding: 0 0 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  isolation: isolate;
+  z-index: 10;
+  pointer-events: none;
+}
+.header-fixed * {
+  pointer-events: auto;
+}
+
+/* Progressive Smoky Blur (Top Gradient) */
+.header-blur-layer-1 {
+  position: absolute;
+  width: 393px;
+  height: 86px;
+  top: calc(50% - 86px / 2 - 10.5px);
+  left: 0;
+  background: #FAF9F6;
+  filter: blur(50px);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+  z-index: 0;
+}
+.header-blur-layer-2 {
+  position: absolute;
+  width: 393px;
+  height: 86px;
+  top: calc(50% - 86px / 2 + 12.5px);
+  left: 0;
+  background: #FAF9F6;
+  opacity: 0.8;
+  filter: blur(45px);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0) 100%);
+  z-index: 1;
+}
+
+/* Status Bar */
+.status {
+  width: 393px;
+  height: 52px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px 8px;
+  z-index: 2;
+}
+.status .time {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro", sans-serif;
+  font-weight: 590;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.5px;
+  color: #111111;
+}
+.status .bars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.status-icon {
+  display: block;
+}
+
+/* Top Bar (360px wide with bottom line) */
+.top-bar {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 360px;
+  height: 39px;
+  padding: 16px 0 2px;
+  border-bottom: 0.5px solid #ECEAE4;
+  z-index: 3;
+}
+.top-bar .header {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 360px;
+  height: 20.5px;
+  padding: 0 2px 4px; /* Exact 2px inner horizontal clearance */
+  border-bottom: 0.5px solid #DCDAD2;
+}
+.monograph-imprint {
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.018em;
+  text-transform: uppercase;
+  color: #55554E;
+}
+.drawer-icon {
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.012em;
+  color: #1C1C1A;
+}
+
+/* ==========================================================================
+   SCROLLABLE CONTENT CONTAINER (330px centered column)
+   ========================================================================== */
+.content-container {
+  position: absolute;
+  top: 108px;
+  left: calc(50% - 330px / 2);
+  width: 330px;
+  height: calc(852px - 108px);
+  padding: 0 0 100px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  scrollbar-width: none;
+}
+.content-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Title Block (330px × 66px, gap: 24px) */
+.title-block {
+  width: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  flex: none;
+}
+.no-iv {
+  width: 330px;
+  height: 14px;
+  font-size: 10px;
+  line-height: 14px;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #52524D;
+}
+.the-butterfly-effect {
+  width: 330px;
+  height: 28px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #111111;
+}
+
+/* Content Stack (330px wide, 16px vertical gap) */
+.content {
+  width: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px; /* Exact 16px gap starting from butterfly-image */
+  flex: none;
+}
+
+/* Butterfly Image Plate (330px × 186px, radius: 8px) */
+.butterfly-image {
+  width: 330px;
+  height: 186px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #E8E2D2;
+  flex: none;
+}
+.butterfly-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Quote Block */
+.quote-block {
+  width: 330px;
+  min-height: 51px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: none;
+}
+.quote {
+  width: 330px;
+  font-style: italic;
+  font-size: 13px;
+  line-height: 17px;
+  text-align: center;
+  letter-spacing: 1.4px;
+  text-transform: capitalize;
+  color: #52524D;
+  margin: 0;
+}
+
+/* Divider (— ❦ —) */
+.divider {
+  width: 330px;
+  height: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+.divider .line {
+  flex: 1;
+  height: 1px;
+  background: rgba(194, 65, 12, 0.15);
+}
+.divider .ornament {
+  font-size: 16px;
+  line-height: 20px;
+  color: #C2410C;
+}
+
+/* Drop Cap Content */
+.drop-cap-content {
+  width: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  flex: none;
+}
+.drop-cap-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  width: 330px;
+  height: 48px;
+}
+.drop-cap {
+  width: 30px;
+  height: 48px;
+  font-size: 48px;
+  line-height: 48px;
+  color: #C2410C;
+}
+.drop-cap-text {
+  width: 296px;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.018em;
+  color: #1A1A1A;
+}
+.p-block-1 {
+  width: 330px;
+}
+.p-block-1 p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.018em;
+  color: #1A1A1A;
+}
+
+/* Paragraph Blocks (Width: 330px, 16px Gentium, 22px line-height) */
+.p-block-2, .p-block-3, .p-block-4, .p-block-5, .p-block-6 {
+  width: 330px;
+  flex: none;
+}
+.p-block-2 p, .p-block-3 p, .p-block-4 p, .p-block-5 p, .p-block-6 p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.018em;
+  color: #1A1A1A;
+  text-align: left;
+}
+.p-block-2 p strong {
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   BOTTOM DOCK (Tabs Width: 330px with 24px gaps, Progressive Blur)
+   ========================================================================== */
+.bottom-dock {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 393px / 2);
+  width: 393px;
+  height: 58px;
+  padding: 8px 16px 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  isolation: isolate;
+  z-index: 10;
+  pointer-events: none;
+}
+.bottom-dock * {
+  pointer-events: auto;
+}
+
+/* Progressive Smoky Blur (Bottom Gradient) */
+.dock-blur-layer-1 {
+  position: absolute;
+  width: 393px;
+  height: 65px;
+  top: calc(50% - 65px / 2 + 14.5px);
+  left: 0;
+  background: #FAF9F6;
+  filter: blur(40px);
+  mask-image: linear-gradient(to top, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+  z-index: 0;
+}
+.dock-blur-layer-2 {
+  position: absolute;
+  width: 393px;
+  height: 86px;
+  top: calc(50% - 86px / 2 - 11px);
+  left: 0;
+  background: #FAF9F6;
+  filter: blur(40px);
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0) 100%);
+  z-index: 1;
+}
+
+/* Tabs Group (330px width with 24px flex gaps) */
+.tabs {
+  width: 330px;
+  height: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 24px; /* Exact 24px gap flanking separators */
+  z-index: 2;
+}
+
+.tab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px 8px;
+  gap: 4px;
+  cursor: pointer;
+}
+.tab-label {
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #8A8A82;
+}
+
+.tab-separator {
+  width: 12px;
+  height: 0;
+  border-top: 0.5px solid #E5E3DC;
+  transform: rotate(90deg);
+}
+
+.active-tab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 4px 8px;
+  gap: 4px;
+  cursor: pointer;
+}
+.active-tab-label {
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: #111111;
+  font-weight: 700;
+}
+
+/* Chevron SVGs */
+.chevron {
+  display: block;
+}
+
+/* Home Indicator Bar (100px wide, 3px border-box) */
+.home-indicator {
+  width: 100px;
+  height: 4px;
+  background: #1A1A1A;
+  border-radius: 2px;
+  z-index: 3;
+}

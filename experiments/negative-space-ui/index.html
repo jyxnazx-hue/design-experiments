@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>The Butterfly Effect — Monograph</title>
+  <link rel="stylesheet" href="../../shared/styles.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Centered Device Viewport (393px × 852px) -->
+  <div class="device-viewport" id="viewport">
+
+    <!-- Custom Mobile Touch Cursor Reticle -->
+    <div class="touch-cursor" id="touchCursor"></div>
+
+    <!-- Exact Figma SVG Paper Grain Texture Overlay -->
+    <svg class="texture-overlay" xmlns="http://www.w3.org/2000/svg" width="393" height="852" viewBox="0 0 393 852" fill="none">
+      <g opacity="0.3" filter="url(#filter0_n_766_295)" style="mix-blend-mode:darken">
+        <rect width="393" height="852" fill="#FAF9F6"/>
+      </g>
+      <defs>
+        <filter id="filter0_n_766_295" x="0" y="0" width="393" height="852" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+          <feTurbulence type="fractalNoise" baseFrequency="1 1" stitchTiles="stitch" numOctaves="3" result="noise" seed="5714"/>
+          <feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise"/>
+          <feComponentTransfer in="alphaNoise" result="coloredNoise1">
+            <feFuncA type="discrete" tableValues="0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+          </feComponentTransfer>
+          <feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped"/>
+          <feFlood flood-color="#ECD3AE" result="color1Flood"/>
+          <feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1"/>
+          <feMerge result="effect1_noise_766_295">
+            <feMergeNode in="shape"/>
+            <feMergeNode in="color1"/>
+          </feMerge>
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- Fixed Header Zone with Progressive Smoky Blur -->
+    <header class="header-fixed">
+      <div class="header-blur-layer-1"></div>
+      <div class="header-blur-layer-2"></div>
+
+      <!-- iOS Realistic Status Bar -->
+      <div class="status">
+        <div class="time">
+          <span>10:15</span>
+        </div>
+        <div class="bars">
+          <!-- Realistic Cellular Signal -->
+          <svg class="status-icon" width="17" height="11" viewBox="0 0 17 11" fill="none">
+            <rect x="0.5" y="8" width="2.5" height="2.5" rx="0.5" fill="#1C140D"/>
+            <rect x="4.5" y="5.5" width="2.5" height="5" rx="0.5" fill="#1C140D"/>
+            <rect x="8.5" y="3" width="2.5" height="7.5" rx="0.5" fill="#1C140D"/>
+            <rect x="12.5" y="0.5" width="2.5" height="10" rx="0.5" fill="#1C140D"/>
+          </svg>
+          <!-- Realistic Wi-Fi -->
+          <svg class="status-icon" width="16" height="11" viewBox="0 0 16 11" fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.999 2.5C5.07 2.5 2.457 3.738 0.61 5.719L0 5.068C2.015 2.906 4.862 1.554 7.999 1.554C11.136 1.554 13.983 2.906 15.998 5.068L15.388 5.719C13.541 3.738 10.928 2.5 7.999 2.5ZM7.999 6.2C5.972 6.2 4.168 7.07 2.89 8.461L2.28 7.81C3.725 6.236 5.753 5.254 7.999 5.254C10.245 5.254 12.273 6.236 13.718 7.81L13.108 8.461C11.83 7.07 10.026 6.2 7.999 6.2ZM8 9.9C7.337 9.9 6.8 10.393 6.8 11H9.2C9.2 10.393 8.663 9.9 8 9.9Z" fill="#1C140D"/>
+          </svg>
+          <!-- Realistic Battery -->
+          <svg class="status-icon" width="25" height="12" viewBox="0 0 25 12" fill="none">
+            <rect x="0.5" y="0.5" width="21" height="10.33" rx="2.67" stroke="#1C140D" stroke-opacity="0.35"/>
+            <rect x="2" y="2" width="16" height="7.33" rx="1.1" fill="#1C140D"/>
+            <path d="M23 4C23.55 4.3 24 5 24 5.67V6.33C24 7 23.55 7.7 23 8V4Z" fill="#1C140D" fill-opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Top Bar (360px width with 2px inner horizontal padding) -->
+      <div class="top-bar">
+        <div class="header">
+          <span class="monograph-imprint">◎ MONOGRAPH</span>
+          <span class="drawer-icon">☵</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Scrollable Content Container (Width: 330px Centered) -->
+    <main class="content-container">
+
+      <!-- Title Block -->
+      <section class="title-block">
+        <div class="no-iv">NO. IV</div>
+        <div class="the-butterfly-effect">THE BUTTERFLY EFFECT</div>
+      </section>
+
+      <!-- Content Stack (16px vertical gap) -->
+      <section class="content">
+
+        <!-- Butterfly Specimen Plate -->
+        <div class="butterfly-image">
+          <img src="butterfly.png" alt="Swallowtail Butterfly Specimen" onerror="this.onerror=null; this.src='/butterfly.png';" />
+        </div>
+
+        <!-- Quote Block -->
+        <div class="quote-block">
+          <p class="quote">“On Sensitivity To Initial Conditions, A Microscopic Change In State Cascades Exponentially Across Time.”</p>
+        </div>
+
+        <!-- Section Divider -->
+        <div class="divider">
+          <div class="line"></div>
+          <span class="ornament">❦</span>
+          <div class="line"></div>
+        </div>
+
+        <!-- Drop Cap + Paragraph 1 -->
+        <div class="drop-cap-content">
+          <div class="drop-cap-row">
+            <span class="drop-cap">D</span>
+            <span class="drop-cap-text">oes the flap of a butterfly’s wings in Brazil set off a tornado in Texas? In 1972,</span>
+          </div>
+          <div class="p-block-1">
+            <p>Edward Lorenz posed this question to the American Association for the Advancement of Science, formalizing what would become the cornerstone of chaos theory.</p>
+          </div>
+        </div>
+
+        <!-- Paragraph 2 (Bold Premise) -->
+        <div class="p-block-2">
+          <p><strong>The core premise is straightforward:</strong> nonlinear dynamical systems exhibit sensitive dependence on initial conditions. A microscopic change in state, seemingly inconsequential in isolation, cascades exponentially across time.</p>
+        </div>
+
+        <!-- Paragraph 3 -->
+        <div class="p-block-3">
+          <p>In classical mechanics, knowledge of present parameters promised deterministic foresight. Yet Lorenz demonstrated that within deterministic equations, predictability remains finite. The trajectory branches infinitely.</p>
+        </div>
+
+        <!-- Paragraph 4 -->
+        <div class="p-block-4">
+          <p>A leaf falling three seconds earlier, a breath drawn a millimeter deeper, a microscopic tremor along a tectonic fault, reality bifurcates at every junction, rewriting future states before they can be observed.</p>
+        </div>
+
+        <!-- Paragraph 5 -->
+        <div class="p-block-5">
+          <p>We do not inhabit a clockwork universe. We navigate a hyper-sensitive manifold where every point of contact, however fleeting, alters the curvature of what follows.</p>
+        </div>
+
+        <!-- Paragraph 6 -->
+        <div class="p-block-6">
+          <p>Lorenz discovered this boundary while modeling atmospheric convection using a primitive Royal McBee LGP-30 computer. Seeking to save time on a simulation run, he rounded an initial decimal from 0.506127 to 0.506. That microscopic truncating of one part in ten thousand transformed a calm weather front into a raging, non-converging storm system within months of modeled time.</p>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- Bottom Dock with Figma Progressive Blur -->
+    <footer class="bottom-dock">
+      <div class="dock-blur-layer-1"></div>
+      <div class="dock-blur-layer-2"></div>
+
+      <!-- Tabs (330px width with 24px gaps) -->
+      <div class="tabs">
+        <div class="tab">
+          <svg class="chevron chevron-left" width="4" height="6" viewBox="0 0 4 6" fill="none">
+            <path d="M3.5 0.5L0.5 3L3.5 5.5" stroke="#8A8A82" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="tab-label">CH. III</span>
+        </div>
+
+        <div class="tab-separator"></div>
+
+        <div class="active-tab">
+          <span class="active-tab-label">CHAPTER IV</span>
+          <svg class="chevron chevron-down" width="6" height="4" viewBox="0 0 6 4" fill="none">
+            <path d="M0.5 0.5L3 3.5L5.5 0.5" stroke="#111111" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="tab-separator"></div>
+
+        <div class="tab">
+          <span class="tab-label">CH. V</span>
+          <svg class="chevron chevron-right" width="4" height="6" viewBox="0 0 4 6" fill="none">
+            <path d="M0.5 0.5L3.5 3L0.5 5.5" stroke="#8A8A82" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Home Indicator Bar -->
+      <div class="home-indicator"></div>
+    </footer>
+
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
