@@ -2,420 +2,317 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Threads — Friction as a Feature</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- iPhone Hardware Bezel -->
-  <div class="iphone-chassis">
-    <div class="device-screen">
-      
-      <!-- iOS Status Bar + Dynamic Island -->
-      <div class="ios-status-bar">
-        <span class="status-time">9:41</span>
-        <div class="dynamic-island"></div>
-        <div class="status-icons">
-          <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor">
-            <rect x="0" y="7" width="3" height="4" rx="1"/>
-            <rect x="4.5" y="5" width="3" height="6" rx="1"/>
-            <rect x="9" y="2.5" width="3" height="8.5" rx="1"/>
-            <rect x="13.5" y="0" width="3" height="11" rx="1"/>
-          </svg>
-          <svg width="15" height="11" viewBox="0 0 16 12" fill="currentColor">
-            <path d="M8 9.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-3.6-2.2a5.2 5.2 0 0 1 7.2 0l1.1-1.2a6.8 6.8 0 0 0-9.4 0l1.1 1.2zm-2.5-2.6a8.8 8.8 0 0 1 12.2 0l1.1-1.2a10.4 10.4 0 0 0-14.4 0l1.1 1.2z"/>
-          </svg>
-          <svg width="24" height="11" viewBox="0 0 25 12" fill="none">
-            <rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="currentColor" stroke-opacity="0.4"/>
-            <rect x="2" y="2" width="18" height="8" rx="1.5" fill="currentColor"/>
-            <path d="M23 4v4a2 2 0 0 0 0-4z" fill="currentColor" fill-opacity="0.5"/>
-          </svg>
-        </div>
+  <div class="device-screen">
+    
+    <!-- iOS Status Bar -->
+    <div class="ios-status-bar">
+      <span class="status-time">2:10</span>
+      <div class="dynamic-island"></div>
+      <div class="status-icons">
+        <svg width="16" height="11" viewBox="0 0 17 11" fill="currentColor">
+          <rect x="0" y="7" width="3" height="4" rx="1"/>
+          <rect x="4.5" y="5" width="3" height="6" rx="1"/>
+          <rect x="9" y="2.5" width="3" height="8.5" rx="1"/>
+          <rect x="13.5" y="0" width="3" height="11" rx="1"/>
+        </svg>
+        <svg width="15" height="11" viewBox="0 0 16 12" fill="currentColor">
+          <path d="M8 9.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-3.6-2.2a5.2 5.2 0 0 1 7.2 0l1.1-1.2a6.8 6.8 0 0 0-9.4 0l1.1 1.2zm-2.5-2.6a8.8 8.8 0 0 1 12.2 0l1.1-1.2a10.4 10.4 0 0 0-14.4 0l1.1 1.2z"/>
+        </svg>
+        <svg width="24" height="11" viewBox="0 0 25 12" fill="none">
+          <rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="currentColor" stroke-opacity="0.4"/>
+          <rect x="2" y="2" width="16" height="8" rx="1.5" fill="currentColor"/>
+          <path d="M23 4v4a2 2 0 0 0 0-4z" fill="currentColor" fill-opacity="0.5"/>
+        </svg>
       </div>
-
-      <!-- Threads Top Header (Matches your screenshot) -->
-      <header class="top-bar">
-        <button class="icon-btn" aria-label="Menu">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round">
-            <line x1="3" y1="9" x2="21" y2="9"></line>
-            <line x1="3" y1="15" x2="14" y2="15"></line>
-          </svg>
-        </button>
-
-        <div class="brand-wordmark" aria-label="Threads">
-          <svg width="24" height="24" viewBox="0 0 192 192" fill="currentColor">
-            <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622 169.331 37.0357 161.965 27.974C147.036 9.60668 125.202 0.195144 97.0695 0H96.9569C68.8816 0.19447 47.2921 9.6418 32.7883 28.0793C19.8819 44.4864 13.2244 67.3157 13.0007 95.9325L13 96L13.0007 96.0675C13.2244 124.684 19.8819 147.514 32.7883 163.921C47.2921 182.358 68.8816 191.806 96.9569 192H97.0695C122.03 191.827 139.624 185.292 154.118 170.811C173.081 151.866 172.51 128.119 166.26 113.541C161.776 103.087 153.227 94.5962 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.523 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z"/>
-          </svg>
-          <span class="wordmark-text">threads</span>
-        </div>
-
-        <button class="icon-btn" aria-label="Search">
-          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="7.5"></circle>
-            <line x1="20.5" y1="20.5" x2="16.5" y2="16.5"></line>
-          </svg>
-        </button>
-      </header>
-
-      <!-- Scrollable Feed Container + Custom Proportioned Scrollbar -->
-      <div class="feed-wrapper">
-        <main class="feed-scroll" id="feedContainer">
-          <div class="post-list" id="postList">
-
-            <!-- Composer Row -->
-            <article class="post-card composer-card">
-              <div class="avatar-wrap">
-                <!-- AVATAR USER: Replace div with <img src="/avatar-user.jpg" class="avatar" alt="sparkle_mist_0" /> -->
-                <div class="avatar avatar-user"></div>
-              </div>
-              <div class="card-content">
-                <div class="post-header">
-                  <span class="handle">sparkle_mist_0</span>
-                </div>
-                <input type="text" class="composer-input" placeholder="What's new?" />
-              </div>
-            </article>
-
-            <!-- ================= POST 1 ================= -->
-            <article class="post-card">
-              <div class="avatar-wrap">
-                <!-- AVATAR 1: Replace div with <img src="/avatar-1.jpg" class="avatar" alt="archive_drift" /> -->
-                <div class="avatar avatar-1"></div>
-                <span class="follow-badge">+</span>
-              </div>
-              <div class="card-content">
-                <div class="post-header">
-                  <div class="author-meta">
-                    <span class="handle">archive_drift</span>
-                    <span class="timestamp">21h</span>
-                  </div>
-                  <button class="more-btn" aria-label="More">•••</button>
-                </div>
-                <p class="post-body">Bridge to Nowhere</p>
-                
-                <!-- CAROUSEL 1 (Flush right): Replace divs with <img src="/post-1-image-1.jpg" class="media-tile" /> etc. -->
-                <div class="media-carousel">
-                  <div class="media-tile tile-collage-1"></div>
-                  <div class="media-tile tile-collage-2"></div>
-                  <div class="media-tile tile-collage-3"></div>
-                </div>
-
-                <!-- Realistic Threads Reaction Icons -->
-                <div class="action-row">
-                  <button class="action-btn like-btn">
-                    <svg class="heart-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 20.5C12 20.5 3.5 15.2 3.5 8.8C3.5 5.9 5.8 3.7 8.5 3.7C10.2 3.7 11.4 4.5 12 5.6C12.6 4.5 13.8 3.7 15.5 3.7C18.2 3.7 20.5 5.9 20.5 8.8C20.5 15.2 12 20.5 12 20.5Z"/>
-                    </svg>
-                    <span>369</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C10.228 20.5 8.583 19.958 7.221 19.031L3.5 20.2L4.669 16.479C3.742 15.117 3.2 13.472 3.2 11.7C3.2 7.0056 7.0056 3.2 11.7 3.2C16.56 3.2 20.5 7.14 20.5 12Z"/>
-                    </svg>
-                    <span>1</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16.5 3.5L20 7L16.5 10.5"/>
-                      <path d="M4.5 11.5V9.5C4.5 8.11929 5.61929 7 7 7H20"/>
-                      <path d="M7.5 20.5L4 17L7.5 13.5"/>
-                      <path d="M19.5 12.5V14.5C19.5 15.8807 18.3807 17 17 17H4"/>
-                    </svg>
-                    <span>34</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M4.5 4.5L20.5 12L4.5 19.5L7.5 12L4.5 4.5Z"/>
-                      <path d="M7.5 12H13"/>
-                    </svg>
-                    <span>6</span>
-                  </button>
-                </div>
-              </div>
-            </article>
-
-            <!-- ================= POST 2 ================= -->
-            <article class="post-card">
-              <div class="avatar-wrap">
-                <!-- AVATAR 2: Replace div with <img src="/avatar-2.jpg" class="avatar" alt="strivewith.mist" /> -->
-                <div class="avatar avatar-2"></div>
-                <span class="follow-badge">+</span>
-              </div>
-              <div class="card-content">
-                <div class="post-header">
-                  <div class="author-meta">
-                    <span class="handle">strivewith.mist</span>
-                    <span class="timestamp">2d</span>
-                  </div>
-                  <button class="more-btn" aria-label="More">•••</button>
-                </div>
-                <p class="post-body">Plot twist: You are capable.<br>Act like it.</p>
-                
-                <!-- SINGLE IMAGE 2: Replace div with <img src="/post-2-image-1.jpg" class="media-single" /> -->
-                <div class="media-single tile-library"></div>
-
-                <div class="action-row">
-                  <button class="action-btn like-btn">
-                    <svg class="heart-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 20.5C12 20.5 3.5 15.2 3.5 8.8C3.5 5.9 5.8 3.7 8.5 3.7C10.2 3.7 11.4 4.5 12 5.6C12.6 4.5 13.8 3.7 15.5 3.7C18.2 3.7 20.5 5.9 20.5 8.8C20.5 15.2 12 20.5 12 20.5Z"/>
-                    </svg>
-                    <span>7.1K</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C10.228 20.5 8.583 19.958 7.221 19.031L3.5 20.2L4.669 16.479C3.742 15.117 3.2 13.472 3.2 11.7C3.2 7.0056 7.0056 3.2 11.7 3.2C16.56 3.2 20.5 7.14 20.5 12Z"/>
-                    </svg>
-                    <span>5</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16.5 3.5L20 7L16.5 10.5"/>
-                      <path d="M4.5 11.5V9.5C4.5 8.11929 5.61929 7 7 7H20"/>
-                      <path d="M7.5 20.5L4 17L7.5 13.5"/>
-                      <path d="M19.5 12.5V14.5C19.5 15.8807 18.3807 17 17 17H4"/>
-                    </svg>
-                    <span>870</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M4.5 4.5L20.5 12L4.5 19.5L7.5 12L4.5 4.5Z"/>
-                      <path d="M7.5 12H13"/>
-                    </svg>
-                    <span>77</span>
-                  </button>
-                </div>
-              </div>
-            </article>
-
-            <!-- ================= POST 3 ================= -->
-            <article class="post-card">
-              <div class="avatar-wrap">
-                <!-- AVATAR 3: Replace div with <img src="/avatar-3.jpg" class="avatar" alt="atelier_notblank" /> -->
-                <div class="avatar avatar-3"></div>
-                <span class="follow-badge">+</span>
-              </div>
-              <div class="card-content">
-                <div class="post-header">
-                  <div class="author-meta">
-                    <span class="handle">atelier_notblank</span>
-                    <span class="timestamp">4d</span>
-                  </div>
-                  <button class="more-btn" aria-label="More">•••</button>
-                </div>
-                <p class="post-body">☆ ARCHIVE REVEAL ☆<br>Another batch of prints created using pieces from their beautifully curated collection of vintage assets ❖❖❖❖❖❖❖❖</p>
-                
-                <!-- CAROUSEL 3: Replace divs with <img src="/post-3-image-1.jpg" class="media-tile" /> etc. -->
-                <div class="media-carousel">
-                  <div class="media-tile tile-print-1">
-                    <span class="print-label">BEGIN<br>ANYWAY</span>
-                  </div>
-                  <div class="media-tile tile-print-2">
-                    <span class="print-label">FLIPPING<br>THROUGH<br>THE ARCHIVE</span>
-                  </div>
-                  <div class="media-tile tile-print-3">
-                    <span class="print-label">EDITION<br>NO. 04</span>
-                  </div>
-                </div>
-
-                <div class="action-row">
-                  <button class="action-btn like-btn">
-                    <svg class="heart-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 20.5C12 20.5 3.5 15.2 3.5 8.8C3.5 5.9 5.8 3.7 8.5 3.7C10.2 3.7 11.4 4.5 12 5.6C12.6 4.5 13.8 3.7 15.5 3.7C18.2 3.7 20.5 5.9 20.5 8.8C20.5 15.2 12 20.5 12 20.5Z"/>
-                    </svg>
-                    <span>1.4K</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C10.228 20.5 8.583 19.958 7.221 19.031L3.5 20.2L4.669 16.479C3.742 15.117 3.2 13.472 3.2 11.7C3.2 7.0056 7.0056 3.2 11.7 3.2C16.56 3.2 20.5 7.14 20.5 12Z"/>
-                    </svg>
-                    <span>32</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16.5 3.5L20 7L16.5 10.5"/>
-                      <path d="M4.5 11.5V9.5C4.5 8.11929 5.61929 7 7 7H20"/>
-                      <path d="M7.5 20.5L4 17L7.5 13.5"/>
-                      <path d="M19.5 12.5V14.5C19.5 15.8807 18.3807 17 17 17H4"/>
-                    </svg>
-                    <span>132</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M4.5 4.5L20.5 12L4.5 19.5L7.5 12L4.5 4.5Z"/>
-                      <path d="M7.5 12H13"/>
-                    </svg>
-                    <span>87</span>
-                  </button>
-                </div>
-              </div>
-            </article>
-
-            <!-- ================= POST 4 ================= -->
-            <article class="post-card">
-              <div class="avatar-wrap">
-                <!-- AVATAR 4: Replace div with <img src="/avatar-4.jpg" class="avatar" alt="literary_index" /> -->
-                <div class="avatar avatar-4"></div>
-                <span class="follow-badge">+</span>
-              </div>
-              <div class="card-content">
-                <div class="post-header">
-                  <div class="author-meta">
-                    <span class="handle">literary_index</span>
-                    <span class="timestamp">3d</span>
-                  </div>
-                  <button class="more-btn" aria-label="More">•••</button>
-                </div>
-                <p class="post-body">In 1921, a Russian writer wrote a novel about a world where AI composes all the music and there are no human musicians, where everyone uses electric toothbrushes, and there are surveillance recorders on street corners. In this world people behave like machines. The book was banned for 67 years. What was the name of the author and the book?</p>
-
-                <div class="action-row">
-                  <button class="action-btn like-btn">
-                    <svg class="heart-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 20.5C12 20.5 3.5 15.2 3.5 8.8C3.5 5.9 5.8 3.7 8.5 3.7C10.2 3.7 11.4 4.5 12 5.6C12.6 4.5 13.8 3.7 15.5 3.7C18.2 3.7 20.5 5.9 20.5 8.8C20.5 15.2 12 20.5 12 20.5Z"/>
-                    </svg>
-                    <span>1.5K</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C10.228 20.5 8.583 19.958 7.221 19.031L3.5 20.2L4.669 16.479C3.742 15.117 3.2 13.472 3.2 11.7C3.2 7.0056 7.0056 3.2 11.7 3.2C16.56 3.2 20.5 7.14 20.5 12Z"/>
-                    </svg>
-                    <span>71</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16.5 3.5L20 7L16.5 10.5"/>
-                      <path d="M4.5 11.5V9.5C4.5 8.11929 5.61929 7 7 7H20"/>
-                      <path d="M7.5 20.5L4 17L7.5 13.5"/>
-                      <path d="M19.5 12.5V14.5C19.5 15.8807 18.3807 17 17 17H4"/>
-                    </svg>
-                    <span>74</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M4.5 4.5L20.5 12L4.5 19.5L7.5 12L4.5 4.5Z"/>
-                      <path d="M7.5 12H13"/>
-                    </svg>
-                    <span>70</span>
-                  </button>
-                </div>
-              </div>
-            </article>
-
-            <!-- ================= POST 5 ================= -->
-            <article class="post-card">
-              <div class="avatar-wrap">
-                <!-- AVATAR 5: Replace div with <img src="/avatar-5.jpg" class="avatar" alt="nocturnal_notes" /> -->
-                <div class="avatar avatar-5"></div>
-                <span class="follow-badge">+</span>
-              </div>
-              <div class="card-content">
-                <div class="post-header">
-                  <div class="author-meta">
-                    <span class="handle">nocturnal_notes</span>
-                    <span class="timestamp">2d</span>
-                  </div>
-                  <button class="more-btn" aria-label="More">•••</button>
-                </div>
-                <p class="post-body">When nobody expects anything from you, the weight of the world lifts off your shoulders.<br><br>True liberation begins when you stop living for everyone else's approval.</p>
-                
-                <!-- SINGLE IMAGE 5: Or replace block with <img src="/post-5-image-1.jpg" class="media-single" /> -->
-                <div class="book-excerpt-card">
-                  <p>You sensed that you should be following a different path, a more ambitious one, you felt that you were destined for other things but you had no idea how to achieve them and in your misery you began to hate everything around you.</p>
-                </div>
-
-                <div class="action-row">
-                  <button class="action-btn like-btn">
-                    <svg class="heart-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 20.5C12 20.5 3.5 15.2 3.5 8.8C3.5 5.9 5.8 3.7 8.5 3.7C10.2 3.7 11.4 4.5 12 5.6C12.6 4.5 13.8 3.7 15.5 3.7C18.2 3.7 20.5 5.9 20.5 8.8C20.5 15.2 12 20.5 12 20.5Z"/>
-                    </svg>
-                    <span>19K</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20.5 12C20.5 16.6944 16.6944 20.5 12 20.5C10.228 20.5 8.583 19.958 7.221 19.031L3.5 20.2L4.669 16.479C3.742 15.117 3.2 13.472 3.2 11.7C3.2 7.0056 7.0056 3.2 11.7 3.2C16.56 3.2 20.5 7.14 20.5 12Z"/>
-                    </svg>
-                    <span>100</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16.5 3.5L20 7L16.5 10.5"/>
-                      <path d="M4.5 11.5V9.5C4.5 8.11929 5.61929 7 7 7H20"/>
-                      <path d="M7.5 20.5L4 17L7.5 13.5"/>
-                      <path d="M19.5 12.5V14.5C19.5 15.8807 18.3807 17 17 17H4"/>
-                    </svg>
-                    <span>3.6K</span>
-                  </button>
-                  <button class="action-btn">
-                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M4.5 4.5L20.5 12L4.5 19.5L7.5 12L4.5 4.5Z"/>
-                      <path d="M7.5 12H13"/>
-                    </svg>
-                    <span>724</span>
-                  </button>
-                </div>
-              </div>
-            </article>
-
-          </div>
-        </main>
-
-        <!-- Proportioned Custom Scroll Indicator -->
-        <div class="scroll-track" aria-hidden="true">
-          <div class="scroll-thumb" id="scrollThumb"></div>
-        </div>
-      </div>
-
-      <!-- Bottom Navigation Bar (Matches your mobile screenshot: Home, DMs, '+', Heart with Red Dot, Profile) -->
-      <nav class="bottom-bar" aria-label="Main Navigation">
-        <!-- 1. Rounded Pentagon Home -->
-        <button class="nav-btn active" aria-label="Home">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M10.8 2.8C11.5 2.2 12.5 2.2 13.2 2.8L19.8 8.3C20.5 8.9 21 9.8 21 10.7V18.5C21 20.2 19.6 21.5 18 21.5H6C4.4 21.5 3 20.2 3 18.5V10.7C3 9.8 3.5 8.9 4.2 8.3L10.8 2.8Z"/>
-          </svg>
-        </button>
-
-        <!-- 2. DMs (Right-pointing Paper Plane) -->
-        <button class="nav-btn" aria-label="Messages">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4.5 4.5L20.5 12L4.5 19.5L7.5 12L4.5 4.5Z"/>
-            <path d="M7.5 12H13"/>
-          </svg>
-        </button>
-
-        <!-- 3. New Thread ('+' inside rounded square pill) -->
-        <button class="nav-btn compose-pill-btn" aria-label="New Thread">
-          <div class="compose-pill">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-            </svg>
-          </div>
-        </button>
-
-        <!-- 4. Activity (Heart with red dot) -->
-        <button class="nav-btn" aria-label="Activity">
-          <div class="activity-icon-wrap">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 20.5C12 20.5 3.5 15.2 3.5 8.8C3.5 5.9 5.8 3.7 8.5 3.7C10.2 3.7 11.4 4.5 12 5.6C12.6 4.5 13.8 3.7 15.5 3.7C18.2 3.7 20.5 5.9 20.5 8.8C20.5 15.2 12 20.5 12 20.5Z"/>
-            </svg>
-            <span class="notif-dot"></span>
-          </div>
-        </button>
-
-        <!-- 5. Profile -->
-        <button class="nav-btn" aria-label="Profile">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 20.5v-1.2a4.3 4.3 0 0 0-4.3-4.3H8.3A4.3 4.3 0 0 0 4 19.3v1.2"/>
-            <circle cx="12" cy="8" r="4"/>
-          </svg>
-        </button>
-      </nav>
-
-      <!-- iOS Home Indicator -->
-      <div class="ios-home-indicator">
-        <span></span>
-      </div>
-
     </div>
+
+    <!-- Top Header (Morphs & scales smoothly on scroll) -->
+    <header class="top-bar" id="topBar">
+      <button class="header-icon-btn" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="4" y1="9" x2="20" y2="9"></line>
+          <line x1="4" y1="15" x2="20" y2="15"></line>
+        </svg>
+      </button>
+
+      <div class="brand-lockup" id="brandLockup" aria-label="Threads">
+        <svg class="threads-at" width="24" height="24" viewBox="0 0 192 192" fill="currentColor">
+          <path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622 169.331 37.0357 161.965 27.974C147.036 9.60668 125.202 0.195144 97.0695 0H96.9569C68.8816 0.19447 47.2921 9.6418 32.7883 28.0793C19.8819 44.4864 13.2244 67.3157 13.0007 95.9325L13 96L13.0007 96.0675C13.2244 124.684 19.8819 147.514 32.7883 163.921C47.2921 182.358 68.8816 191.806 96.9569 192H97.0695C122.03 191.827 139.624 185.292 154.118 170.811C173.081 151.866 172.51 128.119 166.26 113.541C161.776 103.087 153.227 94.5962 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.523 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z"/>
+        </svg>
+        <span class="wordmark" id="brandWordmark">threads</span>
+      </div>
+
+      <button class="header-icon-btn" aria-label="Search">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7.2"></circle>
+          <line x1="20.2" y1="20.2" x2="16.3" y2="16.3"></line>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Scrollable Feed Stream -->
+    <main class="feed-scroll" id="feedContainer">
+      <div class="post-list" id="postList">
+
+        <!-- Composer Row -->
+        <article class="post-card composer-card">
+          <div class="avatar-wrap">
+            <!-- USER AVATAR: <img src="/avatar-user.jpg" class="avatar" alt="You" /> -->
+            <div class="avatar avatar-user"></div>
+          </div>
+          <div class="card-content">
+            <div class="post-header">
+              <span class="handle">sparkle_mist_0</span>
+            </div>
+            <input type="text" class="composer-input" placeholder="What's new?" />
+          </div>
+        </article>
+
+        <!-- ================= POST 1 ================= -->
+        <article class="post-card">
+          <div class="avatar-wrap">
+            <!-- AVATAR 1: <img src="/avatar-1.jpg" class="avatar" alt="archive_drift" /> -->
+            <div class="avatar avatar-1"></div>
+            <span class="follow-badge">+</span>
+          </div>
+          <div class="card-content">
+            <div class="post-header">
+              <div class="author-meta">
+                <span class="handle">archive_drift</span>
+                <span class="timestamp">21h</span>
+              </div>
+              <button class="more-btn" aria-label="More">•••</button>
+            </div>
+            <p class="post-body">Bridge to Nowhere</p>
+            
+            <!-- CAROUSEL 1: Replace divs with <img src="/post-1-image-1.jpg" class="media-tile" /> etc. -->
+            <div class="media-carousel">
+              <div class="media-tile tile-collage-1"></div>
+              <div class="media-tile tile-collage-2"></div>
+              <div class="media-tile tile-collage-3"></div>
+            </div>
+
+            <div class="action-row" data-likes="369" data-comments="1" data-reposts="34" data-shares="6"></div>
+          </div>
+        </article>
+
+        <!-- ================= POST 2 ================= -->
+        <article class="post-card">
+          <div class="avatar-wrap">
+            <!-- AVATAR 2: <img src="/avatar-2.jpg" class="avatar" alt="strivewith.mist" /> -->
+            <div class="avatar avatar-2"></div>
+            <span class="follow-badge">+</span>
+          </div>
+          <div class="card-content">
+            <div class="post-header">
+              <div class="author-meta">
+                <span class="handle">strivewith.mist</span>
+                <span class="timestamp">2d</span>
+              </div>
+              <button class="more-btn" aria-label="More">•••</button>
+            </div>
+            <p class="post-body">Plot twist: You are capable.<br>Act like it.</p>
+            
+            <!-- SINGLE IMAGE 2: <img src="/post-2-image-1.jpg" class="media-single" /> -->
+            <div class="media-single tile-library"></div>
+
+            <div class="action-row" data-likes="7.1K" data-comments="5" data-reposts="870" data-shares="77"></div>
+          </div>
+        </article>
+
+        <!-- ================= POST 3 ================= -->
+        <article class="post-card">
+          <div class="avatar-wrap">
+            <!-- AVATAR 3: <img src="/avatar-3.jpg" class="avatar" alt="atelier_notblank" /> -->
+            <div class="avatar avatar-3"></div>
+            <span class="follow-badge">+</span>
+          </div>
+          <div class="card-content">
+            <div class="post-header">
+              <div class="author-meta">
+                <span class="handle">atelier_notblank</span>
+                <span class="timestamp">4d</span>
+              </div>
+              <button class="more-btn" aria-label="More">•••</button>
+            </div>
+            <p class="post-body">☆ ARCHIVE REVEAL ☆<br>Another batch of prints created using pieces from their beautifully curated collection of vintage assets ❖❖❖❖❖❖❖❖</p>
+            
+            <!-- CAROUSEL 3: Replace divs with <img src="/post-3-image-1.jpg" class="media-tile" /> etc. -->
+            <div class="media-carousel">
+              <div class="media-tile tile-print-1"><span class="print-label">BEGIN<br>ANYWAY</span></div>
+              <div class="media-tile tile-print-2"><span class="print-label">FLIPPING<br>THROUGH<br>THE ARCHIVE</span></div>
+              <div class="media-tile tile-print-3"><span class="print-label">EDITION<br>NO. 04</span></div>
+            </div>
+
+            <div class="action-row" data-likes="1.4K" data-comments="32" data-reposts="132" data-shares="87"></div>
+          </div>
+        </article>
+
+        <!-- ================= POST 4 ================= -->
+        <article class="post-card">
+          <div class="avatar-wrap">
+            <!-- AVATAR 4: <img src="/avatar-4.jpg" class="avatar" alt="literary_index" /> -->
+            <div class="avatar avatar-4"></div>
+            <span class="follow-badge">+</span>
+          </div>
+          <div class="card-content">
+            <div class="post-header">
+              <div class="author-meta">
+                <span class="handle">literary_index</span>
+                <span class="timestamp">3d</span>
+              </div>
+              <button class="more-btn" aria-label="More">•••</button>
+            </div>
+            <p class="post-body">In 1921, a Russian writer wrote a novel about a world where AI composes all the music and there are no human musicians, where everyone uses electric toothbrushes, and there are surveillance recorders on street corners. In this world people behave like machines. The book was banned for 67 years. What was the name of the author and the book?</p>
+
+            <div class="action-row" data-likes="1.5K" data-comments="71" data-reposts="74" data-shares="70"></div>
+          </div>
+        </article>
+
+        <!-- ================= POST 5 ================= -->
+        <article class="post-card">
+          <div class="avatar-wrap">
+            <!-- AVATAR 5: <img src="/avatar-5.jpg" class="avatar" alt="nocturnal_notes" /> -->
+            <div class="avatar avatar-5"></div>
+            <span class="follow-badge">+</span>
+          </div>
+          <div class="card-content">
+            <div class="post-header">
+              <div class="author-meta">
+                <span class="handle">nocturnal_notes</span>
+                <span class="timestamp">2d</span>
+              </div>
+              <button class="more-btn" aria-label="More">•••</button>
+            </div>
+            <p class="post-body">When nobody expects anything from you, the weight of the world lifts off your shoulders.<br><br>True liberation begins when you stop living for everyone else's approval.</p>
+            
+            <!-- SINGLE IMAGE 5: Or replace with <img src="/post-5-image-1.jpg" class="media-single" /> -->
+            <div class="book-excerpt-card">
+              <p>You sensed that you should be following a different path, a more ambitious one, you felt that you were destined for other things but you had no idea how to achieve them and in your misery you began to hate everything around you.</p>
+            </div>
+
+            <div class="action-row" data-likes="19K" data-comments="100" data-reposts="3.6K" data-shares="724"></div>
+          </div>
+        </article>
+
+        <!-- ================= POST 6 ================= -->
+        <article class="post-card">
+          <div class="avatar-wrap">
+            <!-- AVATAR 6: <img src="/avatar-6.jpg" class="avatar" alt="noah_photobook" /> -->
+            <div class="avatar avatar-6"></div>
+            <span class="follow-badge">+</span>
+          </div>
+          <div class="card-content">
+            <div class="post-header">
+              <div class="author-meta">
+                <span class="handle">noah_photobook</span>
+                <span class="timestamp">22h</span>
+              </div>
+              <button class="more-btn" aria-label="More">•••</button>
+            </div>
+            <p class="post-body">カラフルな花束が好きなあなたへ🩵💐✨ <span class="translate-tag">Translate</span></p>
+            
+            <!-- CAROUSEL 6: Replace divs with <img src="/post-6-image-1.jpg" class="media-tile" /> etc. -->
+            <div class="media-carousel">
+              <div class="media-tile tile-floral-1"></div>
+              <div class="media-tile tile-floral-2"></div>
+              <div class="media-tile tile-floral-3"></div>
+            </div>
+
+            <div class="action-row" data-likes="1.3K" data-comments="17" data-reposts="115" data-shares="47"></div>
+          </div>
+        </article>
+
+        <!-- ================= POST 7 ================= -->
+        <article class="post-card">
+          <div class="avatar-wrap">
+            <!-- AVATAR 7: <img src="/avatar-7.jpg" class="avatar" alt="monra____" /> -->
+            <div class="avatar avatar-7"></div>
+            <span class="follow-badge">+</span>
+          </div>
+          <div class="card-content">
+            <div class="post-header">
+              <div class="author-meta">
+                <span class="handle">monra____</span>
+                <span class="topic-crumb">› Cozy Vibes</span>
+                <span class="timestamp">15h</span>
+              </div>
+              <button class="more-btn" aria-label="More">•••</button>
+            </div>
+            <p class="post-body">My cozy little escape. 📺✨✨🤎</p>
+            
+            <!-- CAROUSEL 7: Replace divs with <img src="/post-7-image-1.jpg" class="media-tile" /> etc. -->
+            <div class="media-carousel">
+              <div class="media-tile tile-cozy-1"></div>
+              <div class="media-tile tile-cozy-2"></div>
+            </div>
+
+            <div class="action-row" data-likes="478" data-comments="14" data-reposts="11" data-shares="1"></div>
+          </div>
+        </article>
+
+      </div>
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-bar" aria-label="Main Navigation">
+      <!-- 1. Home (Active: Crisp White #F3F5F7) -->
+      <button class="nav-btn active" aria-label="Home">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.7 2.8a1.1 1.1 0 0 0-1.4 0l-7.6 6.2A1.2 1.2 0 0 0 3.2 10v9.5A2.5 2.5 0 0 0 5.7 22h12.6a2.5 2.5 0 0 0 2.5-2.5V10a1.2 1.2 0 0 0-.5-1l-7.6-6.2z"/>
+        </svg>
+      </button>
+
+      <!-- 2. DMs (Idle: #666666, Rounded Paper Plane) -->
+      <button class="nav-btn" aria-label="Messages">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.6 11.1L4.4 4C3.7 3.7 3.1 4.4 3.4 5L6.5 12L3.4 19C3.1 19.6 3.7 20.3 4.4 20L20.6 12.9C21.3 12.6 21.3 11.4 20.6 11.1Z"/>
+          <line x1="6.5" y1="12" x2="13.5" y2="12"/>
+        </svg>
+      </button>
+
+      <!-- 3. Compose ('+' inside rounded dark squircle) -->
+      <button class="nav-btn compose-pill-btn" aria-label="New Thread">
+        <div class="compose-pill">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+        </div>
+      </button>
+
+      <!-- 4. Activity (Rounded Heart with Red Dot) -->
+      <button class="nav-btn" aria-label="Activity">
+        <div class="icon-badge-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20.5C12 20.5 3.3 15.1 3.3 8.8C3.3 5.9 5.6 3.7 8.4 3.7C10.1 3.7 11.4 4.5 12 5.6C12.6 4.5 13.9 3.7 15.6 3.7C18.4 3.7 20.7 5.9 20.7 8.8C20.7 15.1 12 20.5 12 20.5Z"/>
+          </svg>
+          <span class="activity-dot"></span>
+        </div>
+      </button>
+
+      <!-- 5. Profile (Rounded User Outline) -->
+      <button class="nav-btn" aria-label="Profile">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 20.5v-1.2a4.3 4.3 0 0 0-4.3-4.3H8.3A4.3 4.3 0 0 0 4 19.3v1.2"/>
+          <circle cx="12" cy="8" r="4"/>
+        </svg>
+      </button>
+    </nav>
+
+    <!-- iOS Home Indicator -->
+    <div class="ios-home-indicator">
+      <span></span>
+    </div>
+
   </div>
 
   <script src="script.js"></script>

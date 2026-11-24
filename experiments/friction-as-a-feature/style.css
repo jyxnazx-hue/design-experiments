@@ -2,13 +2,13 @@
 :root {
   --bg-page: #050505;
   --threads-bg: #101010;
-  --threads-elevated: #1E1E1E;
-  --threads-border: #2A2A2A;
+  --threads-elevated: #222222;
+  --threads-border: #282828;
   --threads-text: #F3F5F7;
   --threads-muted: #777777;
-  --threads-icon-inactive: #616161;
+  --threads-icon-idle: #666666;
   --threads-like: #FF3040;
-  --card-gap: 18px;
+  --card-gap: 16px;
 }
 
 * {
@@ -21,7 +21,9 @@
 body {
   background-color: var(--bg-page);
   color: var(--threads-text);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,56 +31,33 @@ body {
   overflow: hidden;
 }
 
-/* Realistic iPhone Outer Bezel */
-.iphone-chassis {
-  padding: 12px;
-  background: linear-gradient(145deg, #2c2c30, #151517);
-  border-radius: 56px;
-  box-shadow:
-    0 0 0 2px #3c3c40,
-    0 32px 75px rgba(0, 0, 0, 0.92);
-  position: relative;
-}
-
-/* Side Hardware Buttons */
-.iphone-chassis::before {
-  content: "";
-  position: absolute;
-  left: -4px;
-  top: 155px;
-  width: 3px;
-  height: 52px;
-  background: #323236;
-  border-radius: 2px 0 0 2px;
-  box-shadow: 0 68px 0 #323236;
-}
-
-.iphone-chassis::after {
-  content: "";
-  position: absolute;
-  right: -4px;
-  top: 185px;
-  width: 3px;
-  height: 82px;
-  background: #323236;
-  border-radius: 0 2px 2px 0;
-}
-
-/* 393 x 852 Inner iPhone Viewport */
+/* Clean Rounded Device Frame (No Thick Bezel) */
 .device-screen {
   width: 393px;
   height: 852px;
   background-color: var(--threads-bg);
   border-radius: 44px;
+  border: 1px solid #222224;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.85);
   position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-/* iOS Status Bar & Dynamic Island */
+/* On real mobile screens, expand cleanly to full screen */
+@media (max-width: 450px) {
+  .device-screen {
+    width: 100vw;
+    height: 100dvh;
+    border-radius: 0;
+    border: none;
+  }
+}
+
+/* iOS Status Bar */
 .ios-status-bar {
-  height: 46px;
+  height: 44px;
   padding: 12px 26px 0;
   display: flex;
   justify-content: space-between;
@@ -89,14 +68,14 @@ body {
 }
 
 .status-time {
-  font-size: 14px;
+  font-size: 14.5px;
   font-weight: 600;
   letter-spacing: -0.2px;
 }
 
 .dynamic-island {
-  width: 112px;
-  height: 30px;
+  width: 110px;
+  height: 29px;
   background-color: #000000;
   border-radius: 20px;
   position: absolute;
@@ -112,94 +91,111 @@ body {
   color: var(--threads-text);
 }
 
-/* Top Header */
+/* Top Bar (Morphs & scales slightly on scroll) */
 .top-bar {
-  height: 50px;
-  padding: 4px 18px 8px;
+  height: 48px;
+  padding: 2px 16px 6px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(16, 16, 16, 0.9);
+  background: rgba(16, 16, 16, 0.92);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   z-index: 10;
   flex-shrink: 0;
+  transition: height 0.25s ease;
 }
 
-.icon-btn {
+.top-bar.scrolled {
+  height: 42px;
+}
+
+.header-icon-btn {
   background: none;
   border: none;
-  color: var(--threads-text);
+  color: var(--threads-icon-idle);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;
-  opacity: 0.92;
+  width: 34px;
+  height: 34px;
+  transition: color 0.18s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.brand-wordmark {
+.top-bar.scrolled .header-icon-btn {
+  transform: scale(0.88);
+}
+
+.header-icon-btn:hover,
+.header-icon-btn.active {
   color: var(--threads-text);
+}
+
+/* '@ threads' -> '@' Morph on Scroll */
+.brand-lockup {
   display: flex;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  gap: 4px;
+  color: var(--threads-text);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.wordmark-text {
+.top-bar.scrolled .brand-lockup {
+  transform: scale(0.92);
+  gap: 0;
+}
+
+.threads-at {
+  flex-shrink: 0;
+}
+
+.wordmark {
   font-size: 21px;
-  font-weight: 700;
-  letter-spacing: -0.6px;
-}
-
-/* Feed Wrapper + Proportioned Custom Scrollbar */
-.feed-wrapper {
-  flex: 1;
-  position: relative;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.7px;
+  max-width: 90px;
+  opacity: 1;
   overflow: hidden;
-  display: flex;
+  white-space: nowrap;
+  transition:
+    max-width 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.18s ease;
 }
 
+.top-bar.scrolled .wordmark {
+  max-width: 0;
+  opacity: 0;
+}
+
+/* Scrollable Feed Stream (Zero Scrollbars) */
 .feed-scroll {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Hide tiny native scrollbar */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
 
 .feed-scroll::-webkit-scrollbar {
   display: none;
 }
 
-.scroll-track {
-  position: absolute;
-  top: 6px;
-  bottom: 6px;
-  right: 3px;
-  width: 4px;
-  pointer-events: none;
-  z-index: 15;
-}
-
-.scroll-thumb {
-  width: 100%;
-  min-height: 96px; /* Prevents the scrollbar from ever looking short */
-  background-color: rgba(255, 255, 255, 0.34);
-  border-radius: 99px;
-  transform: translateY(0px);
-  transition: background-color 0.2s ease;
-}
-
 .post-list {
   display: flex;
   flex-direction: column;
   gap: var(--card-gap);
-  padding: 8px 0 28px;
+  padding: 6px 0 28px;
 }
 
-/* Post Card Layout */
+/* Post Card Layout & Optical Alignment */
 .post-card {
   display: flex;
+  align-items: flex-start;
   gap: 12px;
   padding: 0 16px var(--card-gap);
   border-bottom: 1px solid var(--threads-border);
@@ -209,7 +205,6 @@ body {
   border-bottom: none;
 }
 
-/* Avatars + '+' Follow Badge */
 .avatar-wrap {
   position: relative;
   width: 36px;
@@ -233,6 +228,8 @@ body {
 .avatar-3 { background: linear-gradient(135deg, #c9a87c, #5c4938); }
 .avatar-4 { background: linear-gradient(135deg, #536976, #292E49); }
 .avatar-5 { background: linear-gradient(135deg, #8e7f70, #3d352e); }
+.avatar-6 { background: linear-gradient(135deg, #74b9ff, #a29bfe); }
+.avatar-7 { background: linear-gradient(135deg, #636e72, #2d3436); }
 
 .follow-badge {
   position: absolute;
@@ -244,7 +241,7 @@ body {
   background-color: var(--threads-text);
   color: var(--threads-bg);
   border: 2px solid var(--threads-bg);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -257,49 +254,70 @@ body {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
 }
 
 .post-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 20px;
+  margin-bottom: 2px;
 }
 
 .author-meta {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  align-items: baseline;
+  gap: 5px;
+  min-width: 0;
 }
 
 .handle {
-  font-size: 14.5px;
+  font-size: 15px;
   font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+  color: var(--threads-text);
+}
+
+.topic-crumb {
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 20px;
   color: var(--threads-text);
 }
 
 .timestamp {
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--threads-muted);
+}
+
+.translate-tag {
   font-size: 14px;
   color: var(--threads-muted);
+  margin-left: 4px;
 }
 
 .more-btn {
   background: none;
   border: none;
   color: var(--threads-muted);
-  font-size: 12px;
-  letter-spacing: 1px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
   cursor: pointer;
+  line-height: 20px;
 }
 
 .composer-input {
   background: none;
   border: none;
   color: var(--threads-text);
-  font-size: 14.5px;
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 21px;
   outline: none;
   width: 100%;
-  padding: 2px 0;
 }
 
 .composer-input::placeholder {
@@ -307,18 +325,20 @@ body {
 }
 
 .post-body {
-  font-size: 14.5px;
-  line-height: 1.42;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: -0.15px;
   color: var(--threads-text);
   word-wrap: break-word;
 }
 
-/* Edge-Bleeding Rounded Carousel (No Right Gap) */
+/* Edge-Bleeding Rounded Carousel */
 .media-carousel {
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  margin-top: 6px;
+  margin-top: 8px;
   margin-right: -16px;
   padding-right: 16px;
   scrollbar-width: none;
@@ -339,29 +359,21 @@ body {
   overflow: hidden;
 }
 
-.tile-collage-1 {
-  background: radial-gradient(circle at 50% 35%, #e8eff7 0%, #6488a8 55%, #192638 100%);
-}
-.tile-collage-2 {
-  background: radial-gradient(circle at 60% 50%, #cde0d5 0%, #3a6b5c 60%, #162923 100%);
-}
-.tile-collage-3 {
-  background: linear-gradient(160deg, #2b3a4a, #141a21);
-}
+.tile-collage-1 { background: radial-gradient(circle at 50% 35%, #e8eff7 0%, #6488a8 55%, #192638 100%); }
+.tile-collage-2 { background: radial-gradient(circle at 60% 50%, #cde0d5 0%, #3a6b5c 60%, #162923 100%); }
+.tile-collage-3 { background: linear-gradient(160deg, #2b3a4a, #141a21); }
 
 .media-single {
   width: 100%;
   height: 210px;
   border-radius: 16px;
   object-fit: cover;
-  margin-top: 6px;
+  margin-top: 8px;
   border: 1px solid var(--threads-border);
   display: block;
 }
 
-.tile-library {
-  background: linear-gradient(180deg, #3b281c 0%, #1c120c 100%);
-}
+.tile-library { background: linear-gradient(180deg, #3b281c 0%, #1c120c 100%); }
 
 .tile-print-1,
 .tile-print-2,
@@ -372,7 +384,6 @@ body {
   justify-content: center;
   text-align: center;
 }
-
 .tile-print-2 { background-color: #D8D1C0; }
 .tile-print-3 { background-color: #C7BEA9; }
 
@@ -385,38 +396,59 @@ body {
   line-height: 1.25;
 }
 
+.tile-floral-1 { background: linear-gradient(180deg, #4a90e2 0%, #87cefa 65%, #f5cba7 100%); }
+.tile-floral-2 { background: linear-gradient(180deg, #d6eaf8 0%, #fadbd8 50%, #fcf3cf 100%); }
+.tile-floral-3 { background: linear-gradient(180deg, #5dade2 0%, #aed6f1 60%, #f9e79f 100%); }
+.tile-cozy-1 { background: radial-gradient(circle at 65% 60%, #6e5a44 0%, #241e18 75%); }
+.tile-cozy-2 { background: radial-gradient(circle at 40% 55%, #5c4b39 0%, #1c1814 75%); }
+
 /* Book Excerpt Card (Post 5) */
 .book-excerpt-card {
   background-color: #E8DEC8;
   color: #241E18;
   padding: 18px 16px;
   border-radius: 16px;
-  margin-top: 6px;
+  margin-top: 8px;
   font-family: Georgia, "Times New Roman", serif;
   font-size: 13.5px;
   line-height: 1.5;
   box-shadow: inset 0 0 24px rgba(139, 115, 85, 0.25);
 }
 
-/* Engagement Actions */
+/* Consistent Post Reaction Icons & Tabular Numbers */
 .action-row {
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-top: 8px;
+  margin-top: 10px;
 }
 
 .action-btn {
   background: none;
   border: none;
   color: var(--threads-text);
-  display: flex;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
   align-items: center;
   gap: 5px;
+  height: 20px;
   font-size: 13px;
+  font-weight: 400;
   cursor: pointer;
   opacity: 0.92;
   transition: transform 0.12s ease, color 0.15s ease;
+}
+
+.action-btn svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.action-btn span {
+  line-height: 1;
 }
 
 .action-btn:active {
@@ -435,9 +467,9 @@ body {
 
 /* Bottom Navigation Bar */
 .bottom-bar {
-  height: 58px;
+  height: 56px;
   padding: 6px 12px 0;
-  background: rgba(16, 16, 16, 0.95);
+  background: rgba(16, 16, 16, 0.96);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   display: flex;
@@ -450,9 +482,10 @@ body {
 .nav-btn {
   background: none;
   border: none;
-  color: var(--threads-icon-inactive);
+  color: var(--threads-icon-idle);
   cursor: pointer;
-  padding: 8px 12px;
+  width: 48px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -467,13 +500,12 @@ body {
   transform: scale(0.9);
 }
 
-/* Center '+' Rounded Pill Button */
 .compose-pill {
-  width: 46px;
-  height: 34px;
-  border-radius: 11px;
+  width: 48px;
+  height: 36px;
+  border-radius: 12px;
   background-color: var(--threads-elevated);
-  color: var(--threads-muted);
+  color: var(--threads-icon-idle);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -482,26 +514,26 @@ body {
 
 .nav-btn:hover .compose-pill,
 .nav-btn.active .compose-pill {
-  background-color: #262626;
+  background-color: #2c2c2c;
   color: var(--threads-text);
 }
 
-/* Activity Heart Notification Dot */
-.activity-icon-wrap {
+.icon-badge-wrap {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.notif-dot {
+.activity-dot {
   position: absolute;
   top: 2px;
   right: 1px;
   width: 6px;
   height: 6px;
-  background-color: var(--threads-like);
   border-radius: 50%;
+  background-color: var(--threads-like);
+  border: 1.5px solid var(--threads-bg);
 }
 
 /* iOS Home Indicator */
@@ -519,5 +551,5 @@ body {
   height: 5px;
   background-color: var(--threads-text);
   border-radius: 99px;
-  opacity: 0.85;
+  opacity: 0.9;
 }
